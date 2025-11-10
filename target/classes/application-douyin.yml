@@ -1,0 +1,49 @@
+# 抖音配置
+douyin:
+  # 应用appid
+  app-id: tta5f4d3493af8920701
+  # 应用密钥
+  app-secret: 98ada26bef8c67cd555ff8dd0cc8e43bf8108cef
+  # 应用私钥（请替换为实际的私钥）
+  private-key: |
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCZSHNcFfthd/bV
+    YexEJWOBVEjjDcXjfr1fYevuraNFfMmLPKV836BbvCiUSWHzJYEpkJ934e/j28NB
+    EcEbPDLiGlLTd6AVwR22TkUwpLr41oQprz0HKFwhVPZ0HQCGIv0pVMA53TFSitIq
+    iqbNLmgm5yzSNqNy1t/0X/RfqEtA6Eoxw9u/Sx57i+pBFuLlZYanlm57+b7t1khg
+    9JHvF0ulo7DScyJ4qgrD7oQf0RIQB0rqCFIeYuYO1cfvnxb9x4DPodEyVoAM4i9Y
+    dFop9ZHt73W/icuLku/P8/G1+arzB5b7S1S3ky5/KdS8AEA9Ww5czZcdf9Jgm2S6
+    RymjFGjzAgMBAAECggEBAIryGNgdePyWcSJmHHR9a+CdFWD0aDBa/7CJpAN8VKc1
+    gcB8Xgp+7+6X9jTM/EQa+CVEWrmiDgF/gVPnkyNsAzff4rqcEnoFzzglZSS9/lp4
+    od7jYa+uTy1LxgflDkeJSfEASStqrT4EZpR3kNInQfQZ1BBNxQXhb6smm+9mL6kK
+    QJjAqBgEqtUAmNv0GnH89ZPPgZuIZeeL4cb4BhMEoa5MBnI+HDf07cN1nECQXRJl
+    HU/iyhAPfP7RpO8O9KGDEDE36qebu0Cu4yUjWANXiqECFv93sQzONotkl3VPealv
+    XM+jzGT7YdgHo/t3QKE8flMBo/XUzGTqi8j5AOXiaBkCgYEAylKVtjQMYgg4qMwd
+    9Je+KZ9qL6QVHCsB2NPUt8N99oj70efsG4aGaEAadr8meNhIJ5lpoK+FXqSBIbbD
+    S/xeOVI3XoMx/EdKLw/ZNi87G/EHYK9z7Fr3W7q8DFXe2hZ/ojFXC/aaBanjVVBK
+    /6RfPzXfnx+vGX/t1FhcLC+yQD8CgYEAwfMtrXfH+3dW77dxXT/CTFJVs/o1K2qb
+    epnQ6A33KMHPLBtPZZ6z5rzIO7OMSNItOTXTEoRXHmOKc5FtXGtbCvGSRByb6FgD
+    WG3p2Bp2sZLuJBzXmLbSnEbHTNHM6uTgxNgWAh8pYpjPY8xF7BqYz2rGT47OPBmc
+    tRzDjnzjak0CgYAqkM1mk/S2+zvQZ4E14GblouBYPZEjZ/jvgUGTl9F8eL1iIAUQ
+    lXDZpgLrULPrYLVtf101rTfF/Z4dVbIo3mOEc8OqYre1d9onpJHyUGWDL2Z59O/S
+    niDEb7j4b2h/QZSArxi9L5if8GofnNDqj85qIg92Dthr6PpEXoKl2TMLSQKBgFzQ
+    BHHYukiqSV4ZyRQ4qMBhPkYMXFlUgObgqMoDtN06MewHfa1BjxHCEYgQWfeXLLEO
+    At3/mrkeJWk8lLr/XOgVxkr17d34EFHG93rE3zwG9hMuAjZAdvT2IfWvCIL32GAa
+    kB2fz+ww+D3nySY9bBcGH7R+wE6eaxF4nFSZizKZAoGBAJzuaWCnVK0djfgvUsjm
+    GUtyDvgyREcpAsXvES1pB2NLVeEUxm0uRtj6k4DhCv3rJfUwfMr0+sa9NUnXuaSR
+    VqLYvAD8bNPKXwn7ymzQ7WioCqmZuUhLnQRppkjhfQGKLH0MnMw9Xh9FwJ9kzGNE
+    UnTEhaaHsoaHMlLlRET32gyG
+  # 平台公钥（用于验签，请替换为实际的平台公钥）
+  platform-public-key: |
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
+  # 公钥版本
+  key-version: "1"
+  # 支付结果通知地址
+  pay-notify-url: https://beta.bolink.com/douyin/pay/notify
+  # 默认支付超时时间（秒）
+  default-pay-expire-seconds: 300
+  # 是否启用签名验证
+  enable-signature-verification: true
+  # 订单查询超时时间（毫秒）
+  order-query-timeout: 10000
+  # 是否启用订单查询日志
+  enable-order-query-log: true

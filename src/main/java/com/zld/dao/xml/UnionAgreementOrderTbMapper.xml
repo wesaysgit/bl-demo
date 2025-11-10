@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zld.dao.mapper.base.UnionAgreementOrderTbMapper">
+  <resultMap id="BaseResultMap" type="com.zld.dao.models.UnionAgreementOrderTb">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="platform_id" jdbcType="BIGINT" property="platformId" />
+    <result column="agreement_no" jdbcType="VARCHAR" property="agreementNo" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="pay_status" jdbcType="SMALLINT" property="payStatus" />
+    <result column="total_amount" jdbcType="VARCHAR" property="totalAmount" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="notify_status" jdbcType="SMALLINT" property="notifyStatus" />
+    <result column="notify_times" jdbcType="SMALLINT" property="notifyTimes" />
+    <result column="citme" jdbcType="BIGINT" property="citme" />
+    <result column="utime" jdbcType="BIGINT" property="utime" />
+    <result column="refund_trade_no" jdbcType="VARCHAR" property="refundTradeNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, platform_id, agreement_no, out_trade_no, pay_status, total_amount, subject, notify_status, 
+    notify_times, citme, utime, refund_trade_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from union_agreement_order_tb
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from union_agreement_order_tb
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zld.dao.models.UnionAgreementOrderTb">
+    insert into union_agreement_order_tb (id, platform_id, agreement_no, 
+      out_trade_no, pay_status, total_amount, 
+      subject, notify_status, notify_times, 
+      citme, utime, refund_trade_no
+      )
+    values (#{id,jdbcType=BIGINT}, #{platformId,jdbcType=BIGINT}, #{agreementNo,jdbcType=VARCHAR}, 
+      #{outTradeNo,jdbcType=VARCHAR}, #{payStatus,jdbcType=SMALLINT}, #{totalAmount,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{notifyStatus,jdbcType=SMALLINT}, #{notifyTimes,jdbcType=SMALLINT}, 
+      #{citme,jdbcType=BIGINT}, #{utime,jdbcType=BIGINT}, #{refundTradeNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zld.dao.models.UnionAgreementOrderTb">
+    insert into union_agreement_order_tb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="platformId != null">
+        platform_id,
+      </if>
+      <if test="agreementNo != null">
+        agreement_no,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="notifyStatus != null">
+        notify_status,
+      </if>
+      <if test="notifyTimes != null">
+        notify_times,
+      </if>
+      <if test="citme != null">
+        citme,
+      </if>
+      <if test="utime != null">
+        utime,
+      </if>
+      <if test="refundTradeNo != null">
+        refund_trade_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="platformId != null">
+        #{platformId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementNo != null">
+        #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null">
+        #{notifyStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="notifyTimes != null">
+        #{notifyTimes,jdbcType=SMALLINT},
+      </if>
+      <if test="citme != null">
+        #{citme,jdbcType=BIGINT},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=BIGINT},
+      </if>
+      <if test="refundTradeNo != null">
+        #{refundTradeNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zld.dao.models.UnionAgreementOrderTb">
+    update union_agreement_order_tb
+    <set>
+      <if test="platformId != null">
+        platform_id = #{platformId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementNo != null">
+        agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null">
+        notify_status = #{notifyStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="notifyTimes != null">
+        notify_times = #{notifyTimes,jdbcType=SMALLINT},
+      </if>
+      <if test="citme != null">
+        citme = #{citme,jdbcType=BIGINT},
+      </if>
+      <if test="utime != null">
+        utime = #{utime,jdbcType=BIGINT},
+      </if>
+      <if test="refundTradeNo != null">
+        refund_trade_no = #{refundTradeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zld.dao.models.UnionAgreementOrderTb">
+    update union_agreement_order_tb
+    set platform_id = #{platformId,jdbcType=BIGINT},
+      agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=SMALLINT},
+      total_amount = #{totalAmount,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      notify_status = #{notifyStatus,jdbcType=SMALLINT},
+      notify_times = #{notifyTimes,jdbcType=SMALLINT},
+      citme = #{citme,jdbcType=BIGINT},
+      utime = #{utime,jdbcType=BIGINT},
+      refund_trade_no = #{refundTradeNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

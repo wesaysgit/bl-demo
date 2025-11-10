@@ -1,0 +1,17 @@
+<xml>
+    <appid>wx962fe9d5c0e2a2c7</appid>
+    <attach><![CDATA[{"appKey":"bolink20180603101600weixipay0000"}]]></attach>
+    <body><![CDATA[曾天劭测试使用车场4-停车费-粤A33333]]></body>
+    <mch_id>1493651012</mch_id>
+    <nonce_str>etQIh5iwyT7HV85l</nonce_str>
+    <notify_url>https://tspay.bolink.club/unionapi/wxnotify/codepay</notify_url>
+    <out_trade_no>0202407181133132043294574</out_trade_no>
+    <scene_info>{"store_info":{"name":"曾天劭测试使用车场4停车场","id":"315357"}}</scene_info>
+    <sign><![CDATA[307BC9B8C5902942C33B4D4F6C5686C9]]></sign>
+    <spbill_create_ip>118.24.178.179</spbill_create_ip>
+    <sub_appid>wxbd08b4baa10fcc1d</sub_appid>
+    <sub_mch_id>1680637605</sub_mch_id>
+    <sub_openid>oL8Kg4haUeP2JKQTVhw9Qq34KJFs</sub_openid>
+    <total_fee>1</total_fee>
+    <trade_type>JSAPI</trade_type>
+</xml>

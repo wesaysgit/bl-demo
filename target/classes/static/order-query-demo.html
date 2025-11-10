@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音订单查询Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+        
+        .demo-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        .demo-section h3 {
+            color: #ff6b6b;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #ff5252;
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+        }
+        
+        .api-info {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            color: #0d47a1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .api-info h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        
+        .endpoint {
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 抖音订单查询Demo</h1>
+        
+        <div class="api-info">
+            <h4>📡 API接口信息</h4>
+            <p>基于抖音开放平台查询订单API的完整实现，包含以下功能：</p>
+            <ul>
+                <li>✅ 支持根据订单ID查询订单</li>
+                <li>✅ 支持根据外部订单号查询订单</li>
+                <li>✅ 完整的请求参数验证</li>
+                <li>✅ 详细的响应数据解析</li>
+                <li>✅ 工具类方法支持</li>
+            </ul>
+            <div class="endpoint">GET /douyin/demo/mock-query/by-order-id?orderId=xxx&accessToken=xxx</div>
+            <div class="endpoint">GET /douyin/demo/mock-query/by-out-order-no?outOrderNo=xxx&accessToken=xxx</div>
+            <div class="endpoint">POST /douyin/demo/mock-query</div>
+        </div>
+        
+        <!-- Demo 1: 根据订单ID查询 -->
+        <div class="demo-section">
+            <h3>🔍 Demo 1: 根据订单ID查询订单</h3>
+            <div class="form-group">
+                <label for="orderId">订单ID:</label>
+                <input type="text" id="orderId" value="azQj3yWDWi" placeholder="请输入订单ID">
+            </div>
+            <div class="form-group">
+                <label for="accessToken1">访问令牌:</label>
+                <input type="text" id="accessToken1" value="mock_access_token" placeholder="请输入访问令牌">
+            </div>
+            <button onclick="queryByOrderId()">查询订单</button>
+            <div class="loading" id="loading1">⏳ 正在查询...</div>
+            <div class="result" id="result1" style="display: none;"></div>
+        </div>
+        
+        <!-- Demo 2: 根据外部订单号查询 -->
+        <div class="demo-section">
+            <h3>📝 Demo 2: 根据外部订单号查询订单</h3>
+            <div class="form-group">
+                <label for="outOrderNo">外部订单号:</label>
+                <input type="text" id="outOrderNo" value="Ayrr0n28FB" placeholder="请输入外部订单号">
+            </div>
+            <div class="form-group">
+                <label for="accessToken2">访问令牌:</label>
+                <input type="text" id="accessToken2" value="mock_access_token" placeholder="请输入访问令牌">
+            </div>
+            <button onclick="queryByOutOrderNo()">查询订单</button>
+            <div class="loading" id="loading2">⏳ 正在查询...</div>
+            <div class="result" id="result2" style="display: none;"></div>
+        </div>
+        
+        <!-- Demo 3: 完整请求参数查询 -->
+        <div class="demo-section">
+            <h3>📋 Demo 3: 完整请求参数查询订单</h3>
+            <div class="form-group">
+                <label for="orderId3">订单ID:</label>
+                <input type="text" id="orderId3" value="azQj3yWDWi" placeholder="请输入订单ID">
+            </div>
+            <div class="form-group">
+                <label for="outOrderNo3">外部订单号:</label>
+                <input type="text" id="outOrderNo3" value="Ayrr0n28FB" placeholder="请输入外部订单号">
+            </div>
+            <div class="form-group">
+                <label for="accessToken3">访问令牌:</label>
+                <input type="text" id="accessToken3" value="mock_access_token" placeholder="请输入访问令牌">
+            </div>
+            <div class="form-group">
+                <label for="appId3">应用ID:</label>
+                <input type="text" id="appId3" value="tta5f4d3493af8920701" placeholder="请输入应用ID">
+            </div>
+            <button onclick="queryWithFullRequest()">查询订单</button>
+            <div class="loading" id="loading3">⏳ 正在查询...</div>
+            <div class="result" id="result3" style="display: none;"></div>
+        </div>
+        
+        <!-- Demo 4: 功能演示 -->
+        <div class="demo-section">
+            <h3>🎯 Demo 4: 功能演示</h3>
+            <p>点击下面的按钮查看完整的功能演示（包括工具类方法使用）</p>
+            <button onclick="demonstrateFeatures()">开始演示</button>
+            <div class="loading" id="loading4">⏳ 正在演示...</div>
+            <div class="result" id="result4" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 根据订单ID查询
+        async function queryByOrderId() {
+            const orderId = document.getElementById('orderId').value;
+            const accessToken = document.getElementById('accessToken1').value;
+            const loading = document.getElementById('loading1');
+            const result = document.getElementById('result1');
+            
+            if (!orderId || !accessToken) {
+                showResult('result1', 'error', '❌ 订单ID和访问令牌不能为空');
+                return;
+            }
+            
+            showLoading('loading1', true);
+            hideResult('result1');
+            
+            try {
+                const response = await fetch(`/douyin/demo/mock-query/by-order-id?orderId=${encodeURIComponent(orderId)}&accessToken=${encodeURIComponent(accessToken)}`);
+                const data = await response.json();
+                
+                showResult('result1', 'success', JSON.stringify(data, null, 2));
+            } catch (error) {
+                showResult('result1', 'error', '❌ 查询失败: ' + error.message);
+            } finally {
+                showLoading('loading1', false);
+            }
+        }
+        
+        // 根据外部订单号查询
+        async function queryByOutOrderNo() {
+            const outOrderNo = document.getElementById('outOrderNo').value;
+            const accessToken = document.getElementById('accessToken2').value;
+            
+            if (!outOrderNo || !accessToken) {
+                showResult('result2', 'error', '❌ 外部订单号和访问令牌不能为空');
+                return;
+            }
+            
+            showLoading('loading2', true);
+            hideResult('result2');
+            
+            try {
+                const response = await fetch(`/douyin/demo/mock-query/by-out-order-no?outOrderNo=${encodeURIComponent(outOrderNo)}&accessToken=${encodeURIComponent(accessToken)}`);
+                const data = await response.json();
+                
+                showResult('result2', 'success', JSON.stringify(data, null, 2));
+            } catch (error) {
+                showResult('result2', 'error', '❌ 查询失败: ' + error.message);
+            } finally {
+                showLoading('loading2', false);
+            }
+        }
+        
+        // 完整请求参数查询
+        async function queryWithFullRequest() {
+            const orderId = document.getElementById('orderId3').value;
+            const outOrderNo = document.getElementById('outOrderNo3').value;
+            const accessToken = document.getElementById('accessToken3').value;
+            const appId = document.getElementById('appId3').value;
+            
+            if (!accessToken) {
+                showResult('result3', 'error', '❌ 访问令牌不能为空');
+                return;
+            }
+            
+            if (!orderId && !outOrderNo) {
+                showResult('result3', 'error', '❌ 订单ID和外部订单号至少需要提供一个');
+                return;
+            }
+            
+            showLoading('loading3', true);
+            hideResult('result3');
+            
+            try {
+                const requestData = {
+                    orderId: orderId || null,
+                    outOrderNo: outOrderNo || null,
+                    accessToken: accessToken,
+                    appId: appId || null
+                };
+                
+                const response = await fetch('/douyin/demo/mock-query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const data = await response.json();
+                showResult('result3', 'success', JSON.stringify(data, null, 2));
+            } catch (error) {
+                showResult('result3', 'error', '❌ 查询失败: ' + error.message);
+            } finally {
+                showLoading('loading3', false);
+            }
+        }
+        
+        // 功能演示
+        async function demonstrateFeatures() {
+            showLoading('loading4', true);
+            hideResult('result4');
+            
+            try {
+                const response = await fetch('/douyin/demo/order-query');
+                const result = await response.text();
+                
+                showResult('result4', 'info', result);
+            } catch (error) {
+                showResult('result4', 'error', '❌ 演示失败: ' + error.message);
+            } finally {
+                showLoading('loading4', false);
+            }
+        }
+        
+        // 显示加载状态
+        function showLoading(loadingId, show) {
+            const loading = document.getElementById(loadingId);
+            loading.style.display = show ? 'block' : 'none';
+        }
+        
+        // 隐藏结果
+        function hideResult(resultId) {
+            const result = document.getElementById(resultId);
+            result.style.display = 'none';
+        }
+        
+        // 显示结果
+        function showResult(resultId, type, content) {
+            const result = document.getElementById(resultId);
+            result.className = 'result ' + type;
+            result.textContent = content;
+            result.style.display = 'block';
+        }
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎵 抖音订单查询Demo页面加载完成');
+        });
+    </script>
+</body>
+</html>
+
+
+
+

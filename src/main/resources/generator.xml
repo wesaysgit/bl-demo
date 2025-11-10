@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动包位置 -->
+	<classPathEntry location="/Users/xugan/bolink/generator/postgresql-9.2-1003-jdbc3.jar" />
+	<!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="org.postgresql.Driver"
+						connectionURL="jdbc:postgresql://10.123.4.17:5441/api-base"
+						userId="postgres"
+						password="pgdev1">
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.21.224:3306/himobile?" userId="root" password="hcr.com">-->
+		<!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.zld.dao.models" targetProject="/Users/xugan/bolink/generator/src">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成的映射文件包名和位置 -->
+		<sqlMapGenerator targetPackage="com.zld.dao.mapper.xml" targetProject="/Users/xugan/bolink/generator/src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.zld.dao.mapper" targetProject="/Users/xugan/bolink/generator/src">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+		<table tableName="union_operator_tb" domainObjectName="UnionOperatorTb"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false" />
+
+	</context>
+</generatorConfiguration>

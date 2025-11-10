@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bocom-openapi-sdk-1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bocom-openapi-sdk-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

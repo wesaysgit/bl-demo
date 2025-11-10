@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ys_etc_service (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ys_etc_service.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

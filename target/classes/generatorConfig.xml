@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置生成器 -->
+<generatorConfiguration>
+
+    <classPathEntry location="/Users/xugan/work/project/ESDemo/lib/postgresql-42.2.5.jar"/>
+
+    <context id="psqllib1" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://postgres:5441/api-base"
+                        userId="postgres"
+                        password="pgdev1">
+        </jdbcConnection>
+
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.zld.dao.models" targetProject="src/main/java">
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.zld.dao.xml" targetProject="src/main/java">
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zld.dao.mapper.base" targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="ls_nosence_transfer_details_tb_20241231" domainObjectName="LsNosenceTransferDetailsTb20241231" enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+        </table>
+    </context>
+
+</generatorConfiguration>

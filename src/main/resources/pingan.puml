@@ -1,0 +1,147 @@
+@startuml
+actor 用户 as User
+participant bolinkservice
+participant 支付公司 as PaymentService
+participant 平安支付系统 as PingAnPayService
+participant 结算中心 as SettlementService
+participant 定时任务平台 as Scheduler
+database 冻结表 as union_mch_freeze_tb
+database 分账表 as union_order_profitsharing_tb
+database 营销表 as union_ping_an_subsidy_tb
+
+== 用户下单与支付 ==
+User -> bolinkservice : 发起下单请求
+bolinkservice -> PaymentService : 请求支付
+PaymentService -> bolinkservice : 返回支付数据
+bolinkservice -> User : 返回支付数据
+User -> PaymentService : 完成支付
+PaymentService -> bolinkservice : 支付回调通知
+
+alt 平安结算订单
+    bolinkservice -> union_mch_freeze_tb : 插入冻结数据记录
+else 非平安结算订单
+    note right of bolinkservice : 不插入冻结数据记录
+end
+
+== 冻结充值 ==
+Scheduler -> SettlementService : 冻结提交任务
+SettlementService -> union_mch_freeze_tb : 查询冻结待提交列表
+union_mch_freeze_tb --> SettlementService : 返回冻结待提交列表
+
+loop 对每条待冻结记录
+    SettlementService -> PingAnPayService : 发起冻结充值提交
+    PingAnPayService --> SettlementService : 冻结充值提交成功
+end
+
+== 冻结充值终态查询 ==
+Scheduler -> SettlementService : 冻结终态确认任务
+SettlementService -> union_mch_freeze_tb : 查询冻结终态待确认列表
+union_mch_freeze_tb --> SettlementService : 返回冻结终态待确认列表
+
+loop 对每条冻结终态待确认记录
+    SettlementService -> PingAnPayService : 发起冻结终态查询
+    PingAnPayService --> SettlementService : 返回冻结终态
+    alt 终态成功
+        alt 需要营销补贴
+                SettlementService -> union_ping_an_subsidy_tb : 插入待补贴记录
+            else 不需要补贴
+                note right of SettlementService : 不插入补贴记录
+                alt 是否自动分账
+                    SettlementService -> union_order_profitsharing_tb : 插入分账记录
+                else 否，如机场停单订单
+                    note right of SettlementService : 等待三方触发
+                end
+            end
+    else 终态失败
+        note right of SettlementService : 重试或者人工介入
+    end
+
+end
+== 营销补贴 ==
+Scheduler -> SettlementService : 营销提交任务
+SettlementService -> union_ping_an_subsidy_tb : 查询待营销补贴列表
+union_ping_an_subsidy_tb --> SettlementService : 返回待营销补贴列表
+
+loop 对每条待补贴记录
+    SettlementService -> PaymentService : 发起营销补贴提交请求
+    PaymentService -> SettlementService : 返回营销补贴提交成功
+end
+== 营销补贴终态确认 ==
+Scheduler -> SettlementService : 营销终态确认任务
+SettlementService -> union_ping_an_subsidy_tb : 查询营销终态待确认列表
+union_ping_an_subsidy_tb --> SettlementService : 返回营销终态待确认列表
+
+loop 对每条营销补贴终态确认记录
+    SettlementService -> PingAnPayService : 查询营销终态
+    PingAnPayService -> SettlementService : 返回营销终态
+    alt 终态成功
+            alt 是否自动分账
+                SettlementService -> union_order_profitsharing_tb : 插入分账记录
+            else 否，如机场停单订单
+                note right of SettlementService : 等待三方触发
+            end
+    else 终态失败
+        note right of SettlementService : 重试或者人工介入
+    end
+end
+== 分账 ==
+Scheduler -> SettlementService : 分账提交任务
+SettlementService -> union_order_profitsharing_tb : 查询待分账记录
+union_order_profitsharing_tb --> SettlementService : 返回分账记录列表
+
+loop 对每条待分账记录
+    SettlementService -> PingAnPayService : 发起分账提交请求
+    PingAnPayService -> SettlementService : 返回分账提交终态
+end
+== 分账终态查询 ==
+Scheduler -> SettlementService : 分账终态查询任务
+SettlementService -> union_order_profitsharing_tb : 查询分账终态待确认列表
+union_order_profitsharing_tb --> SettlementService : 返回分账终态待确认列表
+
+loop 对每条待分账记录
+    SettlementService -> PingAnPayService : 发起分账终态查询请求
+    PingAnPayService -> SettlementService : 返回分账终态
+    alt 终态成功
+        SettlementService -> union_order_profitsharing_tb : 更新分账终态，结束
+        note right of SettlementService : 分账成功后则可进行后续提现相关处理
+    else 终态失败
+        note right of SettlementService : 重试或者人工介入
+    end
+end
+== 退款流程 ==
+User -> bolinkservice : 发起退款请求
+bolinkservice -> PaymentService : 请求退款处理
+PaymentService -> bolinkservice : 退款成功
+bolinkservice -> User : 退款成功
+
+alt 退款成功
+    alt 平安结算订单
+        bolinkservice -> SettlementService : 撤销分账、撤销营销、撤销冻结
+
+        alt 订单已分账
+            SettlementService -> PingAnPayService : 撤销分账请求
+            PingAnPayService --> SettlementService : 撤销分账成功
+        else 未分账
+            note right of SettlementService : 无需撤销分账，终态置为 -2（已取消）
+        end
+
+        alt 存在已补贴记录
+            SettlementService -> PingAnPayService : 撤销营销补贴请求
+            PingAnPayService --> SettlementService : 撤销补贴成功
+        else 无营销补贴
+            note right of SettlementService : 无需撤销补贴，终态置为 -2（已取消）
+        end
+
+        alt 已冻结充值
+            SettlementService -> PingAnPayService : 撤销冻结充值请求
+            PingAnPayService --> SettlementService : 撤销冻结成功
+        else 未冻结
+            note right of SettlementService : 无需撤销冻结，终态置为 -2（已退款）
+        end
+
+        note right of SettlementService : 暂未创建平安退款表，后续独立建表处理
+    else 非平安结算订单
+        note right of bolinkservice : 无需处理
+    end
+end
+@enduml

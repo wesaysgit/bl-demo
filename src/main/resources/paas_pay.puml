@@ -1,0 +1,70 @@
+@startuml
+!define RECTANGLE rectangle
+skinparam componentStyle rectangle
+skinparam backgroundColor #FAFAFA
+
+package "前端层" {
+  [车主支付页面] as PayPage
+  [商户管理后台] as MerchantBackend
+  [运营管理平台] as OpsPlatform
+}
+
+package "网关层" {
+  [API Gateway] as Gateway
+  note right of Gateway
+    统一鉴权、限流
+    路由转发、日志记录
+  end note
+}
+
+package "应用服务层" {
+  [支付路由服务] as PayRoute
+  [结算分账服务] as Settlement
+  [订单管理服务] as Order
+  [对账服务] as Reconciliation
+  [通知服务] as Notify
+}
+
+package "第三方接口层" {
+  [随行付API] as SuiXingFu
+  [抖音支付API] as Douyin
+  [乐刷支付API] as LeShua
+  [平安结算中心] as PingAnSettle
+}
+
+package "数据持久层" {
+  database "PostgreSQL\n(主从)" as PG
+  database "Redis Cluster\n(缓存/锁/队列)" as Redis
+  database "MongoDB\n(日志归档)" as Mongo
+}
+
+PayPage --> Gateway
+MerchantBackend --> Gateway
+OpsPlatform --> Gateway
+
+Gateway --> PayRoute
+Gateway --> Settlement
+Gateway --> Order
+Gateway --> Reconciliation
+
+PayRoute --> Order
+PayRoute --> SuiXingFu
+PayRoute --> Douyin
+PayRoute --> LeShua
+
+Settlement --> PingAnSettle
+Order --> Notify
+
+PayRoute --> PG
+Settlement --> PG
+Order --> PG
+Reconciliation --> PG
+
+PayRoute --> Redis
+Settlement --> Redis
+Order --> Redis
+
+Reconciliation --> Mongo
+Notify --> Mongo
+
+@enduml
