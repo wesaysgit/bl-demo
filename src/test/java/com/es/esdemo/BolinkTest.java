@@ -13,7 +13,6 @@ import com.es.pojo.ProfitNotifyDTO;
 import com.es.pojo.UnionOrderProfitsharingTb;
 import com.es.pojo.UnionParkTb;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.httpclient.HttpClient;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -27,7 +26,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -35,30 +33,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BolinkTest {
 
-    private static HttpClient httpClient = null;
-
-    private static final LinkedBlockingQueue<BlUserInfoDTO> BQUEUE = new LinkedBlockingQueue<>();
-
-    static {
-        BlUserInfoDTO b1 = BlUserInfoDTO.builder().userId(1).mobile("188").build();
-        BlUserInfoDTO b2 = BlUserInfoDTO.builder().userId(2).mobile("189").build();
-        BlUserInfoDTO b3 = BlUserInfoDTO.builder().userId(3).mobile("190").build();
-        BQUEUE.add(b1);
-        BQUEUE.add(b2);
-        BQUEUE.add(b3);
-    }
 
     public static void main(String[] args) {
-        String subTableName = getSubTableName("21202511101833242590807314564");
+        String subTableName = getSubTableName("4202512091441099155726");
+        String subTableName1 = getSubTableName("4202512101509111154378");
         System.out.println(subTableName);
+        System.out.println(subTableName1);
 
-        System.out.println(203062 % 3);
-        System.out.println(203062 % 30);
-
-        System.out.println("M2025072600000004".hashCode() % 3);
-        System.out.println("M2025072600000004".hashCode() % 10);
+        System.out.println(202569 % 3);
+        System.out.println(202569 % 30);
 
     }
+
 
     /** 截断微信 body（字节数，UTF-8，安全不乱码） */
     public static String truncateWeChatBody(String body) {

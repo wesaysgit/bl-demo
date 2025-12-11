@@ -57,14 +57,14 @@ public class LsAppId {
 //        unifiedRefundQuery("7544517585", "21202401021229332631947266","ACEE13AD7032483D957C58320E09AAEE");
 //        String leshuaOrderId = "1001612916323059";
         // 8001173649522280
-//        JSONObject queryBind = queryBind("6967215495");
+        JSONObject queryBind = queryBind("6967215495");
 //        List<String> data = queryBind.getJSONArray("data");
 //        for (String datum : data) {
 //            unbind("2355111163", datum);
 //        }
 //        JSONArray bindIds = queryBind.getJSONArray("data");
 //        List<String> list = JSON.parseArray(bindIds.toString(), String.class);
-//        bind("2355111163", "0644610749");
+//        bind("6967215495", "0144319209");
 //        unbind();
 
 //        regist();

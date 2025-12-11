@@ -2,9 +2,14 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="https://repo.maven.apache.org/maven2" />
+      <option name="id" value="aliyun-maven" />
+      <option name="name" value="aliyun-maven" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-releases" />
+      <option name="name" value="maven-releases" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -17,11 +22,6 @@
       <option name="url" value="file://$USER_HOME$/maven/repository" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="aliyun-maven" />
-      <option name="name" value="aliyun-maven" />
-      <option name="url" value="http://nexus3.dev.io/repository/maven-public" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="bolink-repo" />
       <option name="name" value="bolink-repo" />
       <option name="url" value="https://maven.aliyun.com/repository/public" />
@@ -30,6 +30,51 @@
       <option name="id" value="local-repo" />
       <option name="name" value="local-repo" />
       <option name="url" value="https://maven.aliyun.com/repository/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/nexus/content/repositories/central" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-public" />
+      <option name="name" value="maven-public" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://nexus3.bolinkpay.com/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="local-repo" />
+      <option name="name" value="local-repo" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-maven" />
+      <option name="name" value="aliyun-maven" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -57,11 +102,6 @@
       <option name="url" value="https://nexus3.dev.io/repository/maven-public" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="https://maven.aliyun.com/nexus/content/repositories/central" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="aliyun-maven" />
       <option name="name" value="aliyun-maven" />
       <option name="url" value="https://nexus3.dev.io/repository/maven-public" />
@@ -72,34 +112,24 @@
       <option name="url" value="file://$USER_HOME$/maven/repository" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="jboss.community" />
-      <option name="name" value="JBoss Community repository" />
-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="http://nexus3.bolinkpay.com/repository/maven-public/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="https://maven.aliyun.com/repository/central" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
+      <option name="id" value="aliyun-public" />
+      <option name="name" value="aliyun-public" />
       <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="local-repo" />
       <option name="name" value="local-repo" />
-      <option name="url" value="http://nexus3.dev.io/repository/maven-public" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-snapshots" />
+      <option name="name" value="maven-snapshots" />
+      <option name="url" value="http://nexus3.dev.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/repository/central" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="aliyun-maven" />

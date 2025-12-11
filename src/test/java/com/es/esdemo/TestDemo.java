@@ -1,5 +1,6 @@
 package com.es.esdemo;
 
+import cn.hutool.http.HttpUtil;
 import com.es.lsapp.dto.Clazz;
 import com.es.lsapp.dto.Student;
 import org.apache.http.HttpHost;
@@ -21,8 +22,9 @@ public class TestDemo {
 
     @Test
     public void jhToString() {
-        double multi = mult2(BigDecimal.valueOf(2.85005),BigDecimal.valueOf( 0.3));
-        System.out.println(multi);
+        String str = "{\"orgId\":\"07911449\",\"reqData\":{\"amt\":\"0.03\",\"mno\":\"399250527287478\",\"notifyUrl\":\"https://paas.bolink.club/trade/notifysxf/pay\",\"ordNo\":\"24138202511261421381000021003034\",\"payType\":\"WECHAT\",\"payWay\":\"03\",\"subAppid\":\"wxe551bcb8271420f0\",\"subject\":\"车主权益-券包购买\",\"trmIp\":\"192.168.100.9\",\"userId\":\"oEIJU4yJ5ZAq0cSKEOh3EAZRnwQ8\"},\"reqId\":\"2e641fa6edda4ea797c0538a330b748b\",\"sign\":\"GQ2cNek1K+YWFuahgjGEjVSezyYVCFSh59rtc/Ue5nreZiecGFXwaIQgagbwV7ALh8koM/fLiwJxYJUhx/uHmPd84T4lQTn0lFQSVSbCotsIU66gXH1wXaQuR2Cno6AGjgcoznFMoeqBZ3iE1hUEt0XXfSN6gpfVjWW3EdNcphrZmAC1OCseR7rCuIUDXXJZnDuTDFm4I84vVM2A/yEDJtobobXVNy/GNbizILvL84K7F3KTRqr8hpkHKkpP8TwHhqJSDuKUCLOUx0Zw+7yQewYK1fIBPnlYiXp6ftGcHv5xS48sj80w7ssxmliEFOXULsgqlT0EQFKzZ4KzBHOUug==\",\"signType\":\"RSA\",\"timestamp\":1764138098255,\"version\":\"1.0\"}";
+        String post = HttpUtil.post("https://openapi.tianquetech.com/order/jsapiScan", str);
+        System.out.println(post);
     }
 
     public double mult2(BigDecimal b1, BigDecimal b2) {
