@@ -17,13 +17,13 @@ public class LsSianTest {
 
     public static void main(String[] args) {
 //        wechatSettleIdUpdate("7239111077", "574195977", 1);
-        getauthorizestateByWxMerId("796451297");
+//        getauthorizestateByWxMerId("796451297");
 //        getauthorizestateByWxMerId("615196623");
 //        wechatSubjectPreCheck("2040214765", null);
 //        wechatSubjectApply("7239111077", "613235793");
 //        wechatSubjectQuery("9211610528");
 //        submchQuery("7316514044", 1);
-//        submchQuery("8364715739", 1);
+//        submchQuery("8364715739", 4);
 
 
 

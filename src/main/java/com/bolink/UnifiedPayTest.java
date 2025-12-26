@@ -19,7 +19,7 @@ public class UnifiedPayTest {
 //        String payUrl = getPayUrlV2("https://s.bolink.club/unionapi/bolinkparkpay");
 //        String payUrl = getUnifiedPayUrl("http://127.0.0.1:8080/unionapi/bolinkunified");
 //        String result = visitorReq();
-//        String appletAppInfo = getAppletAppInfo("https://s.bolink.club/unionapi/applet/appInfo");
+        String appletAppInfo = getAppletAppInfo("https://s.bolink.club/unionapi/applet/appInfo");
 //        String appletAppInfo = parkingLotProfit("https://beta.bolink.club/unionapi/miniprogram/parkingLotProfit");
 //        String appletAppInfo = parkingLotProfit("http://127.0.0.1:8080/unionapi/miniprogram/parkingLotProfit");
 //        queryCustAcctId();
@@ -68,12 +68,11 @@ public class UnifiedPayTest {
     }
 
     private static String getAppletAppInfo(String url) {
-        String uKey = "B4279FD34C634941";
+        String uKey = "D0EF0C41225D6548";
         JSONObject data = new JSONObject();
-        data.put("unionId", 202570);
-        data.put("parkId", "230776");
+        data.put("unionId", 200721);
+        data.put("parkId", "YY20220820");
         String sign = StringUtilBl.MD5(JSON.toJSONString(data, SerializerFeature.MapSortField) + "key=" + uKey).toUpperCase();
-
 
         JSONObject request = new JSONObject();
         request.put("data", data);

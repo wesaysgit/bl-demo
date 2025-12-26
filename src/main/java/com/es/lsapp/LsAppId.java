@@ -39,8 +39,8 @@ public class LsAppId {
 //        queryCanSubAmount("4511610354");
 //        queryAgentBalance("6967215495");
 
-//        getLsWithDrawBalance("4511610354");
-//        withdrawApply("2916714623", 0);
+//        getLsWithDrawBalance("7855917972");
+//        withdrawApply("7855917972", 0);
 
 //        settlementOrder("20240327005000014093");
         //配置公众号和小程序appid
@@ -57,7 +57,7 @@ public class LsAppId {
 //        unifiedRefundQuery("7544517585", "21202401021229332631947266","ACEE13AD7032483D957C58320E09AAEE");
 //        String leshuaOrderId = "1001612916323059";
         // 8001173649522280
-        JSONObject queryBind = queryBind("6967215495");
+//        JSONObject queryBind = queryBind("6967215495");
 //        List<String> data = queryBind.getJSONArray("data");
 //        for (String datum : data) {
 //            unbind("2355111163", datum);

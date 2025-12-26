@@ -2,6 +2,7 @@ package com.es.RSA;
 import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -69,7 +70,7 @@ public class RSAEncrypt {
 		//RSA加密
 		Cipher cipher = Cipher.getInstance("RSA");
 		cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-		String outStr = Base64.encodeBase64String(cipher.doFinal(str.getBytes("UTF-8")));
+		String outStr = Base64.encodeBase64String(cipher.doFinal(str.getBytes(StandardCharsets.UTF_8)));
 		return outStr;
 	}
 	/** 

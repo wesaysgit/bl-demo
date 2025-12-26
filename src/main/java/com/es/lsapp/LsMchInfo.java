@@ -21,7 +21,7 @@ public class LsMchInfo {
 //        refundQuery();
 //        refund();
 //        shareRefund();
-        info_qry("8063911397");
+        info_qry("9036614197");
 //        querySettlementStatus("1830015938");
 //        auditQry("1957111609");
 //        update("2355111163");
