@@ -17,6 +17,9 @@ import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * 云闪付-车主生活
+ */
 public class UpUnionPay {
 
     private static SecureRandom random = new SecureRandom();
