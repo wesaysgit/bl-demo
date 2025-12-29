@@ -35,7 +35,7 @@ public class BolinkTest {
 
 
     public static void main(String[] args) {
-        String subTableName = getSubTableName("21202512261626425262078317313");
+        String subTableName = getSubTableName("21202512290922179467535661335");
         String subTableName1 = getSubTableName("0202512251125559203839");
         System.out.println(subTableName);
         System.out.println(subTableName1);

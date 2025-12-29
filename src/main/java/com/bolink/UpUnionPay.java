@@ -31,14 +31,14 @@ public class UpUnionPay {
         String source = "02";
         String weAppId = "wx3cbe919f36710d1c";
         String entryAppid = "wx46cbaf3845af50f1";
-        String isLocationAuthRequird = "02";
+        String isLocationAuthRequired = "02";
         String host = "html";
         String isNeedWeApp = "1";
         String serviceStr = "/pagesPay/payDetails/index"
                 + "?certificate=" + redirectUrl
                 + "&source=" + source
                 + "&entryAppId=" + entryAppid
-                + "&isLocationAuthRequird=" + isLocationAuthRequird;
+                + "&isLocationAuthRequird=" + isLocationAuthRequired;
         String weAppPath = "/pages/CQPApplet/index?service=" +
                 URLEncoder.encode(serviceStr, StandardCharsets.UTF_8.name()) + "&type=applet";
         String weAppEnvVersion = "release";
@@ -52,7 +52,7 @@ public class UpUnionPay {
         data.put("weAppEnvVersion", weAppEnvVersion);
 
         String base64 = Base64.encodeBase64String(data.toJSONString().getBytes(StandardCharsets.UTF_8));
-        String params = URLEncoder.encode(base64, String.valueOf(StandardCharsets.UTF_8));
+        String params = URLEncoder.encode(base64, StandardCharsets.UTF_8.name());
         String payUrl = "https://base.cup.com.cn/s/wl/WebAPP/helpAgree/page/sharePay/" + RandomUtil.randomString(8) + "?params=" + params;
         System.out.println(payUrl);
     }
