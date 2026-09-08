@@ -21,8 +21,8 @@ public class LsShopBind1 {
 //        String str = "8749512946,7345410669";
 //        String[] shopIds = str.split(",");
 //        for (String shopId : shopIds) {
-////            subbranchTradeBind(shopId, LsShopWxAliConfigEnum.WXINSURANCEBIND);
-////            subbranchTradeUnBind(shopId, LsShopWxAliConfigEnum.WXINSURANCEUNBIND);
+//            subbranchTradeBind(shopId, LsShopWxAliConfigEnum.WXINSURANCEBIND);
+//            subbranchTradeUnBind(shopId, LsShopWxAliConfigEnum.WXINSURANCEUNBIND);
 //            System.out.println("-----------------------------------------------------------------------------------------");
 //        }
 //        subbranchTradeBind("", LsShopWxAliConfigEnum.WXINSURANCEBIND);
@@ -43,17 +43,14 @@ public class LsShopBind1 {
 
 
 //-----------------------费率相关-------------------------
-//        openFee("", 0);
-//        feeQry("2364719849");
+//        openFee("1250011513", 0);
+        feeQry("4255011856");
+
 //------------------------------------------------
 
         /** 总店挂靠能力申请接口*/
 //        configApply("", "2", "",
 //                "picture2pro/M00/4A/6E/.pdf", 2);
-        // 4644410453 picture2pro/M00/4A/6A/rBQLNWW3ECyAVQsKAAN4z8ShWmo537.pdf
-        // 8666610384 picture2pro/M00/4A/6C/rBQLNWW3EEyAa86WAAOHgX0tXR0358.pdf
-        // 0953516082 picture2pro/M00/4A/6C/rBQLNWW3EGiAFUVzAAN1S9pL4T4382.pdf
-        // 2953516106 picture2pro/M00/4A/6E/rBQLNWW3EIKAUPPDAAOsoXoUWAU037.pdf
 //        pdfUpload();
 //        configUpdate("6347510437", "1", "591510349",
 //                "picture2pro/M00/6A/30/rBQLNWTnH6GAYiDlAAPTRV_KlZg036.pdf", "591993263475104371692864341516");
@@ -179,30 +176,31 @@ public class LsShopBind1 {
             reqMap.put("merchantId", merchantId);
             reqMap.put("effectiveType", effectiveType);
 
-            Integer t1Rate = 39;
-            Integer onlineRate = 61;
-            Integer insuranceRate = 30;
-            Map t1 = new HashMap();
-            t1.put("rate", t1Rate);
+//            Integer t1Rate = 60;
+//            Integer onlineRate = 61;
 
-            Map online = new HashMap();
-            online.put("rate", 61);
 
-            Map insurance = new HashMap();
-            insurance.put("rate", 40);
+//            Map online = new HashMap();
+//            online.put("rate", 61);
+
+
 
             Map weixin = new HashMap();
+//            Map t1 = new HashMap();
+//            t1.put("rate", 50);
+//            weixin.put("t1", t1);
 
-            weixin.put("t1", t1);
-            weixin.put("online", online);
+//            weixin.put("online", online);
+            Map insurance = new HashMap();
+            insurance.put("rate", 60);
             weixin.put("insurance", insurance);
-//            reqMap.put("weixin",weixin);
+            reqMap.put("weixin",weixin);
 
-            JSONObject ali = new JSONObject();
-            JSONObject rate = new JSONObject();
-            rate.put("rate", 60);
-            ali.put("t1",rate);
-            reqMap.put("alipay",ali);
+//            JSONObject ali = new JSONObject();
+//            JSONObject rate = new JSONObject();
+//            rate.put("rate", 50);
+//            ali.put("t1",rate);
+//            reqMap.put("alipay",ali);
 
             Map requestMap = new HashMap();
             requestMap.put("agentId", "5919932");
@@ -383,7 +381,7 @@ public class LsShopBind1 {
 
     public static void pdfUpload() {
         try {
-            String fileName = "/Users/xugan/Desktop/2953516106.pdf";
+            String fileName = "/Users/xugan/person/pics/乐刷分账/合同1.jpg";
             Map reqMap = new HashMap();
             File file = new File(fileName);
             FileInputStream fileInputStream = new FileInputStream(file);

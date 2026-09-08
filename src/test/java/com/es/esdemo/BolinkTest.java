@@ -33,17 +33,34 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BolinkTest {
 
-
     public static void main(String[] args) {
-        String subTableName = getSubTableName("21202512290922179467535661335");
-        String subTableName1 = getSubTableName("0202512251125559203839");
+        String subTableName = getSubTableName("21202608190900415887191551745");
         System.out.println(subTableName);
-        System.out.println(subTableName1);
 
-        System.out.println(202569 % 3);
-        System.out.println(202569 % 30);
+        System.out.println(200660 % 3);
+        System.out.println(200660 % 30);
+
+
+        List<String> lsS = Arrays.asList("21202609012335131486070521989", "21202609012139296799807521989", "21202609011852057554903521989", "21202609011804423953950521989", "21202609011756172709418521989", "21202609011753319648548521989", "2120260901175253410138521989", "21202609011752501181923521989", "21202609011747549028815521989", "21202609011744387695937521989", "21202609011732035313456521989", "2120260901172011259463521989", "21202609011718494117105521989", "21202609011617206476028521989", "21202609011515474012058521989", "21202609011429438272710521989", "21202609011415434322170521989", "21202609011308271070230521989", "21202609011232428736584521989", "21202609011023005952671521989", "2120260901081037736909521989", "21202609010736458863859521989", "21202609010657422241367521989", "212026090106053871403521989");
+        List<String> bls = Arrays.asList("21202609010657422241367521989", "212026090106053871403521989", "2120260901081037736909521989", "21202609010736458863859521989", "21202609011023005952671521989", "21202609011232428736584521989", "21202609011429438272710521989", "21202609011308271070230521989", "21202609011415434322170521989", "2120260901145426318298521989", "21202609011515474012058521989", "21202609011617206476028521989", "21202609011718494117105521989", "2120260901172011259463521989", "21202609011732035313456521989", "21202609011744387695937521989", "21202609011747549028815521989", "21202609011852057554903521989", "21202609011753319648548521989", "21202609011752501181923521989", "2120260901175253410138521989", "21202609011756172709418521989", "21202609011804423953950521989", "21202609012139296799807521989", "21202609012335131486070521989", "21202609012251226183262521989");
+        System.out.println(lsS.stream().filter(it -> !bls.contains(it))
+                .collect(Collectors.toSet()));
+
 
     }
+
+
+    public static void filter() {
+        List<String> lsTradeNos = Arrays.asList("2120260209235817787015438763", "21202602092344108055100438763");
+        System.out.println(lsTradeNos.size());
+        List<String> blTradeNos = Arrays.asList("21202602090003555354762438763", "21202602090003555354762438763");
+        System.out.println(blTradeNos.size());
+        Set<String> collect1 = lsTradeNos.stream().filter(it -> !blTradeNos.contains(it)).collect(Collectors.toSet());
+        Set<String> collect2 = blTradeNos.stream().filter(it -> !lsTradeNos.contains(it)).collect(Collectors.toSet());
+        System.out.println(collect1);
+        System.out.println(collect2);
+    }
+
 
 
     /** 截断微信 body（字节数，UTF-8，安全不乱码） */
@@ -190,10 +207,14 @@ public class BolinkTest {
 
     @Test
     public void getOrderDb() throws Exception {
-        int code = getHashCode(201033, "4gtest");
+        int code = getHashCode(201062, "371254");
         System.out.println(code % 4);
         System.out.println(code % 200);
 
+        String plateNumber = "E848E78";
+        int numLen= plateNumber.length();
+        String s = StrUtil.subSufByLength(plateNumber, 5);
+        System.out.println(s);
     }
     public int getHashCode(Integer unionId, String parkId) {
         int code = (unionId + "_" + parkId).hashCode();

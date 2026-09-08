@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.bolink.BalanceQueryDTO;
 import com.es.wesays.TimeTools;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.HttpClient;
@@ -24,47 +25,49 @@ import java.util.*;
  * 6967215495
  * 2355111163
  * 7447411803 -- app商户号
+ * 总店4：0130917458 做停车的代收业务，
+ * 总店： 7242311699 做充电的代收业务
  */
 @Slf4j
 public class LsAppId {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        int orderAmount = Integer.parseInt(String.format("%.1f", 2.5));
 //        System.out.println(orderAmount);
-//        List<String> list = Arrays.asList("5919932031100563881520250311", "5919932031100563889020250311", "5919932031100563903220250311", "5919932031100563927920250311", "5919932031100564225220250311", "5919932031100570299220250311", "5919932031100570599920250311", "5919932031100570672420250311", "5919932031100570695920250311", "5919932031100570749320250311", "5919932031100570880320250311", "5919932031100571422920250311", "5919932031100571437520250311", "5919932031100571576920250311", "5919932031101193586020250311", "5919932031101193592320250311", "5919932031101193607020250311", "5919932031101195770720250311", "5919932031101195788220250311", "5919932031101195915920250311");
-//        for (String s : list) {
-        //查询营销状态
-//            qryTransferStatus("5919932081401070329420250814");
-//        }
 
-//        queryCanSubAmount("4511610354");
-//        queryAgentBalance("6967215495");
+//        qryTransferStatus("5919932090300194756720260903");
+//        queryMerchantSubsidyStatus("5919932051500204030120260515", "9630311748", "2026-05-14");
 
-//        getLsWithDrawBalance("7855917972");
-//        withdrawApply("7855917972", 0);
+//        queryCanSubAmount("4467211375");
+        queryAgentBalance("5919932");
+
+        //，，，，
+//        getLsWithDrawBalance("3161916005");
+//        withdrawApply("", 0);
 
 //        settlementOrder("20240327005000014093");
         //配置公众号和小程序appid
 //        wxpayconfig(1, "wx4e1d0d53645b8f11", "2758519839", false, "643327838");
 //        wxpayconfigQry("8354612068", "643327838");
-//        queryPayStatus("8949114447", "21202508061356412103216", "");
-//        queryPayStatus("9836614035", "21202510222003387552029542598", "");
-//        queryPayStatus("6967215495", "", "8001287749525278");
+//        queryPayStatus("6738516867", "nosencepay2021051788183980167", "");
+//        queryPayStatus("6967215495", "", "8005124049525274");
 
         //分账订单退款
-//        profitOrderRefund("21202510051059082917804", "8001519249525278", "6967215495", 1000);
+//        profitOrderRefund("", "9000701080326221", "7447411803", 200);
         //普通订单退款
 //        unifiedRefund("","", 0);
 //        unifiedRefundQuery("7544517585", "21202401021229332631947266","ACEE13AD7032483D957C58320E09AAEE");
 //        String leshuaOrderId = "1001612916323059";
         // 8001173649522280
-//        JSONObject queryBind = queryBind("6967215495");
+//        JSONObject queryBind = queryBind("7242311699");
 //        List<String> data = queryBind.getJSONArray("data");
 //        for (String datum : data) {
 //            unbind("2355111163", datum);
 //        }
 //        JSONArray bindIds = queryBind.getJSONArray("data");
 //        List<String> list = JSON.parseArray(bindIds.toString(), String.class);
-//        bind("6967215495", "0144319209");
+//        bind("7447411803", s);
+
+//        queryBind("8251310141");
 //        unbind();
 
 //        regist();
@@ -74,20 +77,19 @@ public class LsAppId {
 
 //        closeOrder("1830015938", "cf485a42748146ac8b6b6a1aff5dc049");
 //        flowQuery("6330010434");
-//        flowQuery1("6330010434");
 //        queryAccreditBanlanceIncome();
 
 
         //amount
 //        multiQuery("0230415919", "p21202506021222508474542", "", "1001465991025152");
 
-//        accreditQuery("0040819157");
-//        elecContractAccredit("8354612068", "浙江大华智慧物联运营服务有限公司");
+//        accreditQuery("7242311699");
+//        elecContractAccredit("", "一码通行（深圳）科技有限公司");
 
         //余额分账
 //        createSumAccredit();
         //余额分账结果查询
-//        querySumAccredit("6967215495", "p61759853123248");
+//        querySumAccredit("6967215495", "p61783699518864519814");
         //撤销余额分账
 //        canceSumAccredit();
 
@@ -111,6 +113,25 @@ public class LsAppId {
             requestMap.put("sign", getSign(requestMap, 3));
             System.out.println("查询营销转账的参数" + requestMap);
             String result = HttpClientUtil.postHttpsJSON("https://saas-combine.leshuazf.com/open-api/agent-subsidy/query-subsidy-batch", JSON.toJSONString(requestMap));
+            System.out.println(result);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void queryMerchantSubsidyStatus(String transferTradeNo, String MerchantId, String SubsidyDate) {
+
+        try {
+            Map requestMap = new LinkedHashMap();
+            requestMap.put("version", "version");
+            requestMap.put("agentId", "5919932");
+            JSONObject dateJson = new JSONObject(true);
+            dateJson.put("SubsidyId", transferTradeNo);
+            dateJson.put("MerchantId", MerchantId);
+            dateJson.put("SubsidyDate", SubsidyDate);
+            requestMap.put("data", dateJson.toJSONString());
+            requestMap.put("sign", getSign(requestMap, 3));
+            System.out.println("查询营销转账的参数" + requestMap);
+            String result = HttpUtil.post("https://saas-combine.leshuazf.com/open-api/agent-subsidy/query-merchant-subsidy-status", JSON.toJSONString(requestMap));
             System.out.println(JSON.toJSONString(result));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -120,13 +141,15 @@ public class LsAppId {
     public static void queryAgentBalance(String merchantId) {
         try {
             Map requestMap = new LinkedHashMap();
-            requestMap.put("version","version");
-            requestMap.put("agentId", merchantId);
-
-            requestMap.put("sign", getSign(requestMap,3));
+            requestMap.put("version", "0.0.1");
+            requestMap.put("agentId", "5919932");
+            JSONObject dateJson = new JSONObject();
+            dateJson.put("bookType", "5007");
+            requestMap.put("data", dateJson);
+            requestMap.put("sign", getSign(requestMap, 3));
             log.error("查询营销余额的参数"+requestMap);
-            String result = HttpClientUtil.postHttpsJSON("https://saas-combine.leshuazf.com//open-api/agent-subsidy/query-agent-balance", JSON.toJSONString(requestMap));
-            log.error("查询营销余额结果"+result);
+            String result = HttpUtil.post("https://saas-combine.leshuazf.com/open-api/agent/query-account-book-balance", JSON.toJSONString(requestMap));
+            log.error(result);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -186,12 +209,12 @@ public class LsAppId {
 
     public static void transferAccount() {
         try {
-            int total = 298;
+            int total = 0;
             JSONArray jsonArray = new JSONArray();
             JSONObject array = new JSONObject(true);
             array.put("MerchantId", "");
-            array.put("ServiceFee", 0);
-            array.put("MarketingFee", 298);
+            array.put("ServiceFee", total);
+            array.put("MarketingFee", 0);
             jsonArray.add(array);
 
             JSONObject dateMap = new JSONObject(true);
@@ -200,6 +223,7 @@ public class LsAppId {
             dateMap.put("TotalMarketingFee", total);
             dateMap.put("TotalSubsidyFee", total);
             dateMap.put("TotalMerchantCount", 1);
+
             dateMap.put("SubsidyDetailList", jsonArray);
 
             Map requestMap = new LinkedHashMap();
@@ -208,7 +232,7 @@ public class LsAppId {
             requestMap.put("data", dateMap);
             requestMap.put("sign", getSign(requestMap, 3));
             System.out.println(JSON.toJSONString(requestMap));
-            String result = HttpClientUtil.postHttpsJSON("https://saas-combine.leshuazf.com//open-api/agent-subsidy/insert-agent-subsidy-msg", JSON.toJSONString(requestMap));
+            String result = HttpClientUtil.postHttpsJSON("https://saas-combine.leshuazf.com/open-api/agent-subsidy-v2/insert-agent-subsidy-msg", JSON.toJSONString(requestMap));
             System.out.println("营销补贴返回的信息为" + result);
             if (!StringUtils.isEmpty(result) && isJson(result)) {
                 JSONObject resultJson = JSON.parseObject(result);
@@ -226,7 +250,7 @@ public class LsAppId {
                     requestMap.put("data", dateJson);
                     requestMap.put("sign", getSign(requestMap, 3));
                     System.out.println("请求确认营销补贴的 参数信息" + requestMap.toString());
-                    String confirmResult = HttpClientUtil.postHttpsJSON("https://saas-combine.leshuazf.com/open-api/agent-subsidy/confirm-agent-subsidy-msg", JSON.toJSONString(requestMap));
+                    String confirmResult = HttpClientUtil.postHttpsJSON("http://saas-combine.leshuazf.com/open-api/agent-subsidy-v2/confirm-agent-subsidy-msg", JSON.toJSONString(requestMap));
                     System.out.println("确认返回结果" + confirmResult);
                 }
             }
@@ -382,7 +406,7 @@ public class LsAppId {
         JSONObject licenseInfo = new JSONObject();
         licenseInfo.put("licenseFullName", merchantName);
         JSONObject otherInfo = new JSONObject();
-        otherInfo.put("sharePercent", 3000);
+        otherInfo.put("sharePercent", 10000);
         otherInfo.put("authTypes", "1,2");
         reqJson.put("baseInfo", baseInfo);
         reqJson.put("licenseInfo", licenseInfo);
@@ -461,28 +485,23 @@ public class LsAppId {
             String third_id = "p" + TradeNoUtil.getTradeNo(21);
             JSONObject data = new JSONObject();
             // 6967215495 线上商户号
-            data.put("merchant_id", "3646511662");
+            data.put("merchant_id", "6967215495");
             data.put("cmd", "balance_allot_create");
             data.put("third_id", third_id);
-            data.put("amount", "");
-            data.put("remark", "手动分账");
+            data.put("amount", "0");
+            data.put("remark", "4月3笔订单追缴聚合收入");
 
             List<Map> details = new ArrayList<>();
             SortedMap detailItem = new TreeMap();
-            detailItem.put("user_id", "3646511662");
-            detailItem.put("amount", "");
+            detailItem.put("user_id", "7864818352");
+            detailItem.put("amount", "2584");
             detailItem.put("user_type", "2");
-            details.add(detailItem);
+//            details.add(detailItem);
             SortedMap detailItem1 = new TreeMap();
-            detailItem1.put("user_id", "");
-            detailItem1.put("amount", "");
+            detailItem1.put("user_id", "0037215707");
+            detailItem1.put("amount", "1492");
             detailItem1.put("user_type", "2");
 //            details.add(detailItem1);
-            SortedMap detailItem2 = new TreeMap();
-            detailItem2.put("user_id", "");
-            detailItem2.put("amount", "");
-            detailItem2.put("user_type", "2");
-//            details.add(detailItem2);
             data.put("details", JSONObject.toJSONString(details));
 
             Map requestMap = new HashMap();
@@ -618,9 +637,9 @@ public class LsAppId {
             JSONObject requestMap = new JSONObject(true);
             JSONObject reqJson = new JSONObject(true);
             //商户号
-            reqJson.put("beginTime", "2023-09-26 00:00:00");
+            reqJson.put("beginTime", "2026-05-26 00:00:00");
             reqJson.put("bookType", 1);
-            reqJson.put("endTime", "2023-10-11 00:00:00");
+            reqJson.put("endTime", "2026-05-27 00:00:00");
             reqJson.put("merchantId", shopId);
             reqJson.put("num", 10);
             reqJson.put("page", 1);
@@ -683,7 +702,7 @@ public class LsAppId {
         }
     }
 
-    public static Integer getLsWithDrawBalance(String shopId) {
+    public static BalanceQueryDTO getLsWithDrawBalance(String shopId) {
         try {
             Map requestMap = new LinkedHashMap();
             JSONObject reqJson = new JSONObject();
@@ -702,11 +721,9 @@ public class LsAppId {
             System.out.println(JSONObject.toJSONString(dataJSon));
             Integer code = dataJSon.getInteger("code");
             if (code != null && code == 0) {
-                JSONObject data = dataJSon.getJSONObject("data");
-                int contributoryAmount = data.getInteger("contributoryAmount");
-                return contributoryAmount;
+                BalanceQueryDTO queryDTO = dataJSon.getObject("data", BalanceQueryDTO.class);
+                return queryDTO;
             }
-
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -902,6 +919,9 @@ public class LsAppId {
             System.out.println("商户提现请求参数" + JSON.toJSONString(requestMap));
             String resultJson = HttpClientUtil.post("https://saas-combine.leshuazf.com/open-api/merchant-withdraw/apply", JSONObject.toJSONString(requestMap), "application/json", "utf-8", 5000, 5000);
             System.out.println(resultJson);
+            JSONObject jsonObject = JSON.parseObject(resultJson);
+            JSONObject data = jsonObject.getJSONObject("data");
+            System.out.println(data.getString("billId"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -986,6 +1006,12 @@ public class LsAppId {
 
         payMap.put("merchantId1", merchantId1);
         payMap.put("merchantId2", merchantId2);
+//        payMap.put("protocolPic", "picture3pro/M00/27/41/rBQLP2pPcxyAeGBPAAZQI6OmkeQ391.jpg,picture3pro/M00/27/59/rBQLP2pPdi2AVs9_AAlyOtF5-CM326.jpg,picture3pro/M00/27/5E/rBQLP2pPdueAakhlAATqROaw_KM247.jpg,picture3pro/M00/27/5F/rBQLP2pPdvuAdtftAAQvpJsuTIg433.jpg");
+//        payMap.put("protocolPic", "picture3pro/M00/27/6B/rBQLP2pPeIGAOvG_AAo80zm3-5Q50.jpeg,picture3pro/M00/27/6B/rBQLP2pPeIyAeZLYAAvXFoUxObc13.jpeg,picture3pro/M00/27/6C/rBQLP2pPeJuANbR1AAkdW0wFhY495.jpeg,picture3pro/M00/27/6C/rBQLP2pPeKuAUv9qAAQ49-9zhfI91.jpeg");
+//        payMap.put("protocolPic", "picture3pro/M00/27/6F/rBQLP2pPeQuAALeyAAgNQYwBqso07.jpeg,picture3pro/M00/27/6F/rBQLP2pPeRiAZX-dAAdfUX53FbE92.jpeg");
+//        payMap.put("protocolPic", "picture3pro/M00/29/0D/rBQLP2pPkgiADNTXABgsNJDLqfg710.jpg,picture3pro/M00/29/0E/rBQLP2pPkhuAKRiUAAN9vxLf9N0146.jpg,picture3pro/M00/29/0E/rBQLP2pPkiuAcXBDAAQ5RkRs2KU577.jpg,picture3pro/M00/29/0F/rBQLP2pPkjqAEbQNABSaOV9qnoM117.jpg");
+//        payMap.put("protocolPic", "picture3pro/M00/49/55/rBQLP2pS-HeAM36uAAZQI6OmkeQ179.jpg,picture3pro/M00/49/56/rBQLP2pS-JeAaJORAAlyOtF5-CM145.jpg,picture3pro/M00/49/54/rBQLP2pS-FOADgHxAA3qSjWFbS4591.png,picture3pro/M00/49/56/rBQLP2pS-KeAI-3HAAQvpJsuTIg519.jpg");
+        payMap.put("protocolPic", "picture3pro/M00/02/45/rBQLP2pZ4HGAZsTDAAqbTvImhLM07.jpeg,picture3pro/M00/02/46/rBQLP2pZ4ISAaKL0AAsAomWcyXI65.jpeg,picture3pro/M00/02/46/rBQLP2pZ4JGAa9RLAAnd9xh4zuc06.jpeg,picture3pro/M00/02/47/rBQLP2pZ4J6AZruuAAltdRR4aJ837.jpeg");
 
         Map requestMap = new HashMap();
         requestMap.put("agentId", 5919932);

@@ -1,12 +1,10 @@
 package com.bolink;
 
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.XmlUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.es.lsapp.HttpClientUtil;
 import com.es.lsapp.MD5Util;
 import com.es.lsapp.TradeNoUtil;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Base64Utils;
 
@@ -26,7 +24,8 @@ public class UpUnionPay {
 
     public static void main(String[] args) throws Exception {
         //89058487523993C,8905848752301B5
-//        queryMchId("6157211815");
+//        getCodeV1("9260511664", null);
+//        queryMchId("0323018668");
         String redirectUrl = getCode("6157211815", null);
         String source = "02";
         String weAppId = "wx3cbe919f36710d1c";
@@ -34,28 +33,81 @@ public class UpUnionPay {
         String isLocationAuthRequired = "02";
         String host = "html";
         String isNeedWeApp = "1";
-        String serviceStr = "/pagesPay/payDetails/index"
-                + "?certificate=" + redirectUrl
-                + "&source=" + source
-                + "&entryAppId=" + entryAppid
-                + "&isLocationAuthRequird=" + isLocationAuthRequired;
-        String weAppPath = "/pages/CQPApplet/index?service=" +
-                URLEncoder.encode(serviceStr, StandardCharsets.UTF_8.name()) + "&type=applet";
+//        String serviceStr = "/pagesPay/payDetails/index"
+//                + "?certificate=" + redirectUrl
+//                + "&source=" + source
+//                + "&entryAppId=" + entryAppid
+//                + "&isLocationAuthRequird=" + isLocationAuthRequired;
+//        String weAppPath = "/pages/CQPApplet/index?service=" +
+//                URLEncoder.encode(serviceStr, StandardCharsets.UTF_8.name()) + "&type=applet";
         String weAppEnvVersion = "release";
 
         JSONObject data = new JSONObject();
-        data.put("dest", redirectUrl.replace("https://", ""));
-        data.put("host", host);
-        data.put("isNeedWeApp", isNeedWeApp);
-        data.put("weAppId", weAppId);
-        data.put("weAppPath", weAppPath);
-        data.put("weAppEnvVersion", weAppEnvVersion);
+//        data.put("dest", redirectUrl.replace("https://", ""));
+//        data.put("host", host);
+//        data.put("isNeedWeApp", isNeedWeApp);
+//        data.put("weAppId", weAppId);
+//        data.put("weAppPath", weAppPath);
+//        data.put("weAppEnvVersion", weAppEnvVersion);
 
-        String base64 = Base64.encodeBase64String(data.toJSONString().getBytes(StandardCharsets.UTF_8));
-        String params = URLEncoder.encode(base64, StandardCharsets.UTF_8.name());
-        String payUrl = "https://base.cup.com.cn/s/wl/WebAPP/helpAgree/page/sharePay/" + RandomUtil.randomString(8) + "?params=" + params;
-        System.out.println(payUrl);
+        data.put("appId", weAppId);
+        data.put("path", weAppId);
+        data.put("envVersion", weAppEnvVersion);
+
+        String appletSource = "00";
+        String appletServiceStr = "/pagesPay/payDetails/index"
+                + "?certificate=" + redirectUrl
+                + "&source=" + appletSource
+//                + "&entryAppId=" + entryAppid
+//                + "&isLocationAuthRequird=" + isLocationAuthRequired
+                ;
+        String appletPath = "/pages/CQPApplet/index?service=" +
+                URLEncoder.encode(appletServiceStr, StandardCharsets.UTF_8.name()) + "&isLocationAuthRequird=00&type=applet";
+
+        data.put("appId", weAppId);
+        data.put("path", appletPath);
+        data.put("envVersion", weAppEnvVersion);
+
+//        String base64 = Base64.encodeBase64String(data.toJSONString().getBytes(StandardCharsets.UTF_8));
+//        String params = URLEncoder.encode(base64, StandardCharsets.UTF_8.name());
+//        String payUrl = "https://base.cup.com.cn/s/wl/WebAPP/helpAgree/page/sharePay/" + RandomUtil.randomString(8) + "?params=" + params;
+//        System.out.println(payUrl);
+        System.out.println(data);
     }
+
+    public static String getCodeV1(String merchantId, String ass_merchant_id) throws Exception {
+        String tradeNo = getTradeNo(21);
+        Map payMap = new HashMap();
+        payMap.put("amount", "1");//订单金额 M
+        payMap.put("nonce_str", UUID.randomUUID().toString().replaceAll("-", "").substring(0, 32).toUpperCase());//随机字符串  M
+        payMap.put("jspay_flag", "3");
+        payMap.put("merchant_id", merchantId);//商户号 M
+//        payMap.put("pnrins_id_cd", "C1004248");
+        payMap.put("royalty", "1");
+        payMap.put("notify_url", encodeUTF8("https://beta.bolink.club/unionapi/walletNotify/rechargeCallback"));//通知地址 O
+        payMap.put("body", "1");//商品描述  O
+        payMap.put("pay_way", "WXZF");//支付类型 M
+        payMap.put("sub_openid", "oEIJU434ENBxMX1Fj7hwCIqb9D3s");//支付类型 M
+        payMap.put("third_order_id", TradeNoUtil.getTradeNo(21));//订单号 M
+        payMap.put("appid", "wxe551bcb8271420f0");//订单号 M
+//        payMap.put("ass_merchant_id", "914457605");//订单号 M
+//        payMap.put("app_up_identifier", "MicroMessenger");//订单号 M
+//        payMap.put("appid", "wx46cbaf3845af50f1");
+//        payMap.put("qrcode_url", "https://beta.bolink.club/nw/unionapi/t?p=151539");//订单号 M
+
+        payMap.put("service", "get_tdcode");//接口名 M
+
+        //支付成功跳转页
+        String defaultPaySuccessUrl = "http://beta.bolink.club/unionapi/payComplete?money=1" + "&tradeno=" + tradeNo + "&merchant_id=" + merchantId;
+        payMap.put("jump_url", encodeUTF8(defaultPaySuccessUrl));//支付成功跳转页面 需要编码 C
+        payMap.put("sign", getSign(payMap, 1));//签名 M
+        System.out.println("下单:" + JSONObject.toJSONString(payMap));
+        String lsResultStr = HttpClientUtil.postParameters("https://paygate.leshuazf.com/cgi-bin/lepos_pay_gateway.cgi", payMap);
+        Map<String, Object> map = XmlUtil.xmlToMap(lsResultStr);
+        System.out.println("返回:" + JSONObject.toJSONString(map));
+        return (String) map.get("jspay_info");
+    }
+
 
     public static String getCode(String merchantId, String ass_merchant_id) throws Exception {
         String tradeNo = getTradeNo(21);

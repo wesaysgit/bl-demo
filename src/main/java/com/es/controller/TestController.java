@@ -4,6 +4,9 @@ import com.es.ip.NetworkUtil;
 import com.es.pojo.AreaTb;
 import com.es.pojo.ParkTokenTb;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -26,8 +30,8 @@ import java.util.Random;
 @Slf4j
 public class TestController {
 //
-//    @Autowired
-//    private RedissonClient redissonClient;
+    @Autowired
+    private RedissonClient redissonClient;
 
     private static List<AreaTb> areaTbs = new ArrayList<>();
 
@@ -62,9 +66,10 @@ public class TestController {
     @RequestMapping("/lock")
     public String test() {
         String result = null;
-//        RLock lock = redissonClient.getLock("sss");
+        RLock lock = redissonClient.getLock("sss");
         try {
-//            lock.lock();
+            lock.lock();
+            lock.tryLock(10, 10, TimeUnit.SECONDS);
             result = "...................加锁成功";
             //业务处理
         } catch (Exception e) {

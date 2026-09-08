@@ -2,6 +2,7 @@ package com.es.lsapp.sign;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.es.lsapp.HttpClientUtil;
@@ -23,7 +24,23 @@ public class LsSianTest {
 //        wechatSubjectApply("7239111077", "613235793");
 //        wechatSubjectQuery("9211610528");
 //        submchQuery("7316514044", 1);
-//        submchQuery("8364715739", 4);
+//
+//
+//2233618758
+//
+//        List<String> list = Arrays.asList("8159414551", "3149716326", "2153916312", "4162116247", "6139516018", "1150415539", "9150214495", "0167516017", "2167311753", "4132511756", "5046717957", "6039117908", "7047616723", "3055115523", "8063914982", "8054914988", "5052212447", "8345912545", "9058411487", "7245915920", "3744913813", "1344915963", "5152216400", "7344913563", "5443918977", "4243913910", "6049211119", "1342911366", "1041916998", "2049910358", "7447411803", "4346817598", "1357910509", "0445814451", "8334616834", "8056914427", "1056914419", "9056914398", "3334616753", "2034617983", "3655914079", "4245812193", "4733614835", "4744814510", "8343810752", "2158814513", "1932510535", "5031518183", "7851813244", "2340712185", "5850819524", "7564812646", "5554818117", "7930318263", "5847618097", "5935411248", "3735412405", "7746615953", "1834416523", "4453712093", "3031311801", "0650710643", "4538317166", "3356617911", "7930318263", "3031311801", "3031311801", "6767719802", "1433317723", "3031311801", "3031311801", "8754612372", "6067719059", "3031311801", "8933216855", "3353619085", "5353619044", "9066710714", "3031311801", "8933216855", "8933216855", "8933216855", "8933216855", "8933216855", "3365713867", "3031311801", "6652618707", "7930318263", "7930318263", "8933216855", "8933216855", "3930314766", "3031311801", "8265718872", "8265718872", "8265718872", "8530310301", "6152615750", "7749515023", "8430313548");
+        List<String> list = Arrays.asList("4453712093");
+        ArrayList<String> objects = new ArrayList<>();
+        for (String s : list) {
+            try {
+                submchQuery(s, 4, objects);
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(JSONObject.toJSONString(objects));
+
+        }
 
 
 
@@ -224,7 +241,7 @@ public class LsSianTest {
     }
 
     //【微信】微信商户号查询
-    public static void submchQuery(String merchantId, Integer subMchType) {
+    public static void submchQuery(String merchantId, Integer subMchType, ArrayList<String> objects) {
         try {
             Map submchQuery = new HashMap();
             submchQuery.put("merchantId", merchantId);
@@ -245,27 +262,16 @@ public class LsSianTest {
             String subMchQueryResult = HttpClientUtil.postParameters("https://saas-mch.leshuazf.com/apiv2/submch/query", requestMap);
             System.out.println(subMchQueryResult);
             JSONObject resData = JSON.parseObject(subMchQueryResult);
-            LsSignResVo res = defaultFailRes();
-            String respCode = resData.getString("respCode");
-            res.setMsg(resData.getString("respMsg"));
-//            if ("000000".equals(respCode)) {
-//                res.setState(1);
-//                res.setData(resData.getJSONObject("data").getJSONArray("wechat"));
-//                JSONArray array = resData.getJSONObject("data").getJSONArray("wechat");
-//                array.sort((o1, o2) -> {
-//                    JSONObject o11 = (JSONObject) o1;
-//                    JSONObject o22 = (JSONObject) o2;
-//                    try {
-//                        Date createTime1 = sdf.parse(o11.getString("createTime"));
-//                        Date createTime2 = sdf.parse(o22.getString("createTime"));
-//                        return createTime2.before(createTime1) ? -1 : 1;
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-//                    return 0;
-//                });
-//                System.out.println(">>>>>>>>>>>"+array.get(0));
-//            }
+            JSONObject data = resData.getJSONObject("data");
+            JSONArray cups = data.getJSONArray("cups");
+            if (cups != null && !cups.isEmpty()) {
+                JSONObject sub = cups.getJSONObject(0);
+                if (StrUtil.isNotEmpty(sub.getString("subMchId"))) {
+                    System.out.println("=-=====" + sub.getString("subMchId"));
+                    objects.add(merchantId);
+                }
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

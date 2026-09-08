@@ -1,2 +1,2 @@
-2025-11-11 22:50:23.813 [main] ERROR com.es.lsapp.LsAppId:127 - 查询营销余额的参数{version=version, agentId=0951917372, sign=3d91faf8de49221cfa917c213bbf57cd}
-2025-11-11 22:50:24.346 [main] ERROR com.es.lsapp.LsAppId:129 - 查询营销余额结果{"sign":"3d91faf8de49221cfa917c213bbf57cd","agentId":"0951917372","error_code":"-9010","error_msg":"接口调用受限!","version":"version"}
+2026-09-08 17:05:19.888 [main] ERROR com.es.lsapp.LsAppId:150 - 查询营销余额的参数{version=0.0.1, agentId=5919932, data={"bookType":"5007"}, sign=b5e41f09dbbf3ac452dcd9b1e16e62dd}
+2026-09-08 17:05:20.409 [main] ERROR com.es.lsapp.LsAppId:152 - {"agentId":"5919932","error_code":"0","error_msg":"Success","balance":"72148.01"}

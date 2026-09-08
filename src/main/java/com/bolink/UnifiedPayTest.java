@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bolink.pojo.ParkingLotProfitDetail;
+import com.es.lsapp.TradeNoUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -16,10 +17,11 @@ public class UnifiedPayTest {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
 //        String payUrl = getUnifiedPayUrl("https://beta.bolink.club/unionapi/bolinkunified");
+//        String payUrl = queryorder("https://beta.bolink.club/unionapi/queryorder");
 //        String payUrl = getPayUrlV2("https://s.bolink.club/unionapi/bolinkparkpay");
 //        String payUrl = getUnifiedPayUrl("http://127.0.0.1:8080/unionapi/bolinkunified");
 //        String result = visitorReq();
-        String appletAppInfo = getAppletAppInfo("https://s.bolink.club/unionapi/applet/appInfo");
+//        String appletAppInfo = getAppletAppInfo("https://s.bolink.club/unionapi/applet/appInfo");
 //        String appletAppInfo = parkingLotProfit("https://beta.bolink.club/unionapi/miniprogram/parkingLotProfit");
 //        String appletAppInfo = parkingLotProfit("http://127.0.0.1:8080/unionapi/miniprogram/parkingLotProfit");
 //        queryCustAcctId();
@@ -29,25 +31,25 @@ public class UnifiedPayTest {
         String uKey = "4F80BF35DF83858D";
         JSONObject data = new JSONObject();
         data.put("profitType", 3);
-        data.put("outTradeNo", "241020250722185542607378999");
+        data.put("outTradeNo", "241020260201150018256709999");
         data.put("appId", "wxe551bcb8271420f0");
-        data.put("delayAccountDay", 3);
-        data.put("payTime", 1753180211);
+        data.put("delayAccountDay", 1);
+        data.put("payTime", 1769938124);
 
         List<JSONObject> profits = new ArrayList<>();
         JSONObject profit1 = new JSONObject();
-        profit1.put("amount", 3);
+        profit1.put("amount", 8);
         profit1.put("feeSubject", 1);
-        profit1.put("parkId", "56399");
+        profit1.put("parkId", "56443");
         profit1.put("platformType", 4);
         profit1.put("unionId", 200712);
         profit1.put("wxWallet", 0);
         JSONObject profit2 = new JSONObject();
-        profit2.put("amount", 3);
+        profit2.put("amount", 2);
         profit2.put("feeSubject", 0);
-        profit2.put("parkId", "jichangtest");
+        profit2.put("parkId", "56442");
         profit2.put("platformType", 4);
-        profit2.put("unionId", 201018);
+        profit2.put("unionId", 200712);
         profit2.put("wxWallet", 0);
         profits.add(profit1);
         profits.add(profit2);
@@ -68,15 +70,15 @@ public class UnifiedPayTest {
     }
 
     private static String getAppletAppInfo(String url) {
-        String uKey = "D0EF0C41225D6548";
+        String uKey = "C4597BFC7B76089A";
         JSONObject data = new JSONObject();
-        data.put("unionId", 200721);
-        data.put("parkId", "YY20220820");
-        String sign = StringUtilBl.MD5(JSON.toJSONString(data, SerializerFeature.MapSortField) + "key=" + uKey).toUpperCase();
+        data.put("unionId", 201035);
+        data.put("parkId", "1514901088864313346");
+        String sign = DigestUtil.md5Hex(JSON.toJSONString(data, SerializerFeature.MapSortField) + "key=" + uKey).toUpperCase();
 
         JSONObject request = new JSONObject();
         request.put("data", data);
-        request.put("unionId", 202570);
+        request.put("unionId", 201035);
         request.put("sign", sign);
         String post = HttpUtil.post(url, request.toJSONString());
         System.out.println(post);
@@ -142,56 +144,64 @@ public class UnifiedPayTest {
         return payUrl;
     }
 
-    public static String getUnifiedPayUrl(String url) {
+    public static String queryorder(String url) {
         JSONObject data = new JSONObject();
-//        data.put("callback_url", "https://one.yunparking.club/yunbo/#/pages/success?money=3.0");
-        data.put("title", "停车费用支付");
-        data.put("park_id", "cs2025102301");
-        data.put("amount", "0.01");
-        data.put("car_number", "贵AG7X65");
-        data.put("pay_type", 0);
-        data.put("trade_no", "175583463250082123417");
-        data.put("channel", "applets");
-//        data.put("douyin_pay", 1);
-//        data.put("douyin_params", "{\"limitPayWayList\":[],\"orderEntrySchema\":{\"path\":\"subpackages/airport-parking/order-detail/index\"},\"payExpireSeconds\":300,\"skuList\":[{\"imageList\":[\"https://image.bolink.com/yima/parking-icon.png\"],\"price\":2,\"quantity\":1,\"skuId\":\"1\",\"tagGroupId\":\"tag_group_7443548955339669558\",\"title\":\"曾天劭自动化进件1753340831\",\"type\":703}],\"totalAmount\":2}");
-//        data.put("airport_pre_paid", 1);
-        data.put("time_temp", System.currentTimeMillis() / 1000);
-//        data.put("wx_app_id", "wxe551bcb8271420f0");
-//        data.put("wx_open_id", "0d3qJmHa1tfzxK0y9oHa1yBwWv0qJmHw");
-//        data.put("paas_hermes_paid", 1);
-        ParkingLotProfitDetail detail1 = new ParkingLotProfitDetail();
-        detail1.setAmount(80L);
-        detail1.setShopId("5933000000091007");
-        detail1.setFeeSubject(1);
-        detail1.setPlatformId(2L);
-        ParkingLotProfitDetail detail2 = new ParkingLotProfitDetail();
-        detail2.setAmount(20L);
-        detail2.setShopId("5933000000091007");
-        detail2.setFeeSubject(1);
-        detail2.setPlatformId(3L);
-//        data.put("share_details", JSON.toJSONString(Arrays.asList(detail1, detail2)));
-        data.put("wx_app_id", "wx0870f79235e513f7");
-//        data.put("wx_open_id", "ofUl45B5OLX0AYX1dcArstEc9Z5w");
-//        data.put("order_id", "1806574373341462503");
-//        data.put("description", "停车费用支付");
+        data.put("trade_no", "2026052515311501");
+        data.put("park_id", "56545");
+        //厂商密钥
+        String uKey = "3A37E69B1E4C614E"; //200712
+        String sign = DigestUtil.md5Hex(data + "key=" + uKey, "utf-8").toUpperCase();
 
-//        String uKey = "1C263F8299C535C6"; //201026 223355 gaodeng
-//        String uKey = "06BE6FCB92A64961"; //201018 223355 315357
-//        String uKey = "6D1B9AC3968F877E"; //201033 fenruntest 315577
-//        String uKey = "4F80BF35DF83858D"; //200712
-        String uKey = "17AC830AB299EBFD"; //200712
-//        String signStr = data.toJSONString() + "key=" + uKey;
-//        String sign = DigestUtil.md5Hex(signStr, "utf-8").toUpperCase();
-
-        String linkString = StringUtilBl.createLinkString(data);
-        String sign = DigestUtil.md5Hex(linkString + "&key=" + uKey, "utf-8").toUpperCase();
         JSONObject request = new JSONObject();
         request.put("data", data);
         request.put("sign", sign);
-        request.put("union_id", 200688);
-//        request.put("request_source", "applets_plugin_dy_pingan");
-        request.put("request_source", "applets_plugin_yima_direct");
-        request.put("code", "0a3qb8ml2VG2yg4nbvnl2eVkYR1qb8mu");
+        request.put("union_id", 201121);
+
+        if (StrUtil.isEmpty(url)) {
+            url = "https://beta.bolink.club/unionapi/bolinkunified";
+        }
+        String params = request.toJSONString();
+        System.out.println(params);
+        String post = HttpUtil.post(url, params);
+        System.out.println(post);
+        return "";
+    }
+
+    public static String getUnifiedPayUrl(String url) {
+        JSONObject data = new JSONObject();
+        data.put("title", "停车费用支付");
+        data.put("park_id", "56583");//车场编号
+        data.put("amount", "0.03");//支付金额（单位：元。2位小数）
+        data.put("car_number", "贵AG7X65");//车牌
+        data.put("pay_type", 0);//支付类型(必填, 0-扫码支付, 1-微信公众号支付, 2-付款码被扫支付)
+        data.put("trade_no", TradeNoUtil.getTradeNo(17));
+        data.put("channel", "weixin");//支付渠道(pay_type=0时必填: weixin-微信/alipay-支付宝/applets-小程序/unionpay-银联云闪付)
+        data.put("biz_type", "5");//业务类型: 0-停车缴费(def); 1-机场预约; 2-PAAS追缴订单; 3-三方追缴(分润); 4-车位优选; 5-商业咨询服务;
+        data.put("time_temp", System.currentTimeMillis() / 1000);
+        //分账详情
+        ParkingLotProfitDetail detail1 = new ParkingLotProfitDetail();
+        detail1.setAmount(2L);//子项分账接收方金额（单份：分）
+        detail1.setFeeSubject(1);//子项手续费承担主体
+        detail1.setUnionId(201121L);//厂商编号
+        detail1.setParkId("56583");//车场编号
+        detail1.setPlatformType(4);//平台类型4-车场（固定4）
+        ParkingLotProfitDetail detail2 = new ParkingLotProfitDetail();
+        detail2.setUnionId(201121L);
+        detail2.setParkId("56665");
+        detail2.setPlatformType(4);
+        detail2.setAmount(1L);
+        //分账接收方详情（可为当前业务发生车场）
+        data.put("share_details", JSON.toJSONString(Arrays.asList(detail1, detail2)));
+        //厂商密钥
+        String uKey = "3A37E69B1E4C614E"; //200712
+        String sign = DigestUtil.md5Hex(data + "key=" + uKey, "utf-8").toUpperCase();
+
+        JSONObject request = new JSONObject();
+        request.put("data", data);
+        request.put("sign", sign);
+        request.put("union_id", 201121);
+//        request.put("request_source", "applets_plugin_yima_direct");
+//        request.put("code", "0a3qb8ml2VG2yg4nbvnl2eVkYR1qb8mu");
 
         if (StrUtil.isEmpty(url)) {
             url = "https://beta.bolink.club/unionapi/bolinkunified";

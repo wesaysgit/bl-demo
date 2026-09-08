@@ -30,13 +30,13 @@ public class LsShopBind {
 //        attachQuery("8539112234", "2");
 
 //        subbranchTradeBind("1542716294", LsShopWxAliConfigEnum.HEADWXTEMP3);
-//        subbranchTradeUnBind("", LsShopWxAliConfigEnum.HEADWXUNBINDTEMP);
+        subbranchTradeUnBind("", LsShopWxAliConfigEnum.HEADWXUNBINDTEMP);
 //        System.out.println("============================================================");
 
 //        attachQuery("8539112234", LsShopWxAliConfigEnum.WXCHANNELCONFIG.getFChannelType());
 
-//        feeQry("1830015938");
-//        openFee("3069612174");
+//        feeQry("9630311748");
+//        openFee("");
 //        System.out.println("修改后查询=========================");
 //        feeQry("2444118828");
 //------------------------------------------------
@@ -59,7 +59,7 @@ public class LsShopBind {
 
         /**被挂靠方挂靠关系查询接口*/
 //        attachedQuery("6347510437","1", "591510349");
-//        submchQuery("8539112234");
+//        submchQuery("4138217711");
 
     }
     /**
@@ -173,9 +173,9 @@ public class LsShopBind {
         try {
             Map reqMap = new HashMap();
             reqMap.put("merchantId", merchantId);
-            reqMap.put("effectiveType", 2);//0：立即生效 2：次日生效 5：当日生效
+            reqMap.put("effectiveType", 0);//0：立即生效 2：次日生效 5：当日生效
 
-            Integer rateVal1 = 30;
+            Integer rateVal1 = 60;
 
             Map rate1 = new HashMap();
             rate1.put("rate", rateVal1);
@@ -186,14 +186,14 @@ public class LsShopBind {
 //            rate2.put("rate", rateVal2);
 
             Map weixin = new HashMap();
-//            weixin.put("insurance", rate1);
-            weixin.put("t1", rate1);
+            weixin.put("insurance", rate1);
+//            weixin.put("t1", rate1);
 //            weixin.put("online", rate1);
 
-            Map ali = new HashMap();
-            ali.put("t1", rate1);
+//            Map ali = new HashMap();
+//            ali.put("t1", rate1);
 
-            reqMap.put("alipay", ali);
+//            reqMap.put("alipay", ali);
             reqMap.put("weixin", weixin);
 
             Map requestMap = new HashMap();

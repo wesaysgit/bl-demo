@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderExtraInfo {
 
     private static final String url = "https://beta.bolink.club/unionapi/binternal/applet/orderExtraInfo";
-    private static final Long unionId = 201018L;
-    private static final String uKey = "06BE6FCB92A64961";
+//    private static final Long unionId = 201018L;
+    private static final Long unionId = 200712L;
+//    private static final String uKey = "06BE6FCB92A64961";
+    private static final String uKey = "4F80BF35DF83858D";
 
     public static void main(String[] args) {
 
@@ -22,8 +24,8 @@ public class OrderExtraInfo {
             paramDTO.setUnionId(unionId);
 
             UnionOrderExtraInfoReqDTO reqDTO = new UnionOrderExtraInfoReqDTO();
-            reqDTO.setOutTradeNo("2120250821095241669809315625");
-            reqDTO.setPayTime(1755741161L);
+            reqDTO.setOutTradeNo("21202602281013556783083314564");
+            reqDTO.setPayTime(1772244836L);
 
             paramDTO.setSign(BlSignUtil.createSign(JSON.toJSONString(reqDTO, SerializerFeature.MapSortField), unionId, uKey));
             paramDTO.setData(reqDTO);
